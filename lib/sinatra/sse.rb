@@ -81,3 +81,12 @@ module Sinatra::SSE
     end
   end
 end
+
+module Sinatra
+  class Request
+    # Convenience method for detecting if client requested SSE
+    def sse?
+      env['HTTP_ACCEPT'] == 'text/event-stream'
+    end
+  end
+end
