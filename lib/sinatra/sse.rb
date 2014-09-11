@@ -47,7 +47,7 @@ module Sinatra::SSE
       @out.close
     end
     
-    # set a callback block.
+    # set a callback block for errors
     def errback(&block)
       @errback = Proc.new
     end
