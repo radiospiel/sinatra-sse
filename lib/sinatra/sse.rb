@@ -36,11 +36,20 @@ module Sinatra::SSE
         @callback.call if @callback
       end
 
+      @out.errback do
+        @errback.call if @errback
+      end
+
       reset_keepalive_timer
     end
     
     def close
       @out.close
+    end
+    
+    # set a callback block.
+    def errback(&block)
+      @errback = Proc.new
     end
     
     # set a callback block.
