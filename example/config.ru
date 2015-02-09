@@ -15,9 +15,17 @@ class TimeServer < Sinatra::Base
   include Sinatra::SSE
   
   get '/' do
-    sse_stream do |out|
-      EM.add_periodic_timer(1) do 
-        out.push :event => "timer", :data => Time.now.to_s
+    if request.sse?
+      sse_stream do |out|
+        EM.add_periodic_timer(1) do
+          out.push :event => "timer", :data => Time.now.to_s
+        end
+      end
+    else
+      stream(:keep_open) do |out|
+        EM.add_periodic_timer(1) do
+          out << "#{Time.now.to_s}\n"
+        end
       end
     end
   end
