@@ -12,7 +12,7 @@ supports async operation. It is tested with thin.
 The timer example (in example/config.ru) sends time information over an SSE stream, like this:
 
     require "sinatra/base"
-    require "sinatra/see"
+    require "sinatra/sse"
 
     class TimeServer < Sinatra::Base
       include Sinatra::SSE
